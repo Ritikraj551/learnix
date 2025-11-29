@@ -7,6 +7,6 @@ const {
 } = require("../controllers/paymentController");
 
 paymentRouter.post("/create-order", userAuth, createOrder);
-paymentRouter.post("/verify-payment", userAuth, verifyPayment);
+paymentRouter.post("/verifypayment", userAuth, verifyPayment);
 
 module.exports = paymentRouter;
