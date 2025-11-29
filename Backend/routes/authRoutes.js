@@ -7,7 +7,7 @@ const {
   verifyOtp,
   resetPassword,
   googleAuth,
-} = require("../controllers/authContoller");
+} = require("../controllers/authController");
 
 const authRouter = express.Router();
 

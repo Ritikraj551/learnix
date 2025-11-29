@@ -1,5 +1,5 @@
 const uploadOnCloudinary = require("../config/cloudinary");
-const User = require("../models/User");
+const User = require("../models/user");
 
 const getCurrentUser = async (req, res) => {
   try {

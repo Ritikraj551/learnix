@@ -45,7 +45,7 @@ const createReview = async (req, res) => {
     const avgRating =
       allReviews.reduce((acc, r) => acc + r.rating, 0) / allReviews.length;
 
-    await Review.findByIdAndUpdate(courseId, {
+    await Course.findByIdAndUpdate(courseId, {
       averageRating: avgRating.toFixed(1),
     });
 

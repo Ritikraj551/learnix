@@ -12,14 +12,15 @@ const getPublishedCourse = () => {
         const result = await axios.get(serverUrl + "/api/course/published", {
           withCredentials: true,
         });
-        dispatch(setCourseData(result.data));
+        dispatch(setCourseData(result.data.courses || []));
         console.log(result.data);
       } catch (error) {
         console.log(error);
+        dispatch(setCourseData([]));
       }
     };
     getCourseData();
-  }, []);
+  }, [dispatch]);
 };
 
 export default getPublishedCourse;

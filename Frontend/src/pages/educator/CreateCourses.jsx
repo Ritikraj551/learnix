@@ -23,7 +23,7 @@ const CreateCourses = () => {
       console.log(result.data);
       setLoading(false);
       toast.success("Course created");
-      navigate("/courses")
+      navigate("/courses");
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -77,7 +77,7 @@ const CreateCourses = () => {
               <option value="Data Science">Data Science</option>
               <option value="Data Analytics">Data Analytics</option>
               <option value="Ethical Hacking">Ethical Hacking</option>
-              <option value="UI UX Designing">UI UX Designing</option>
+              <option value="UI/UX Designing">UI UX Designing</option>
               <option value="Web Development">Web Development</option>
               <option value="Others">Others</option>
             </select>

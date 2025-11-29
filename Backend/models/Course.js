@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose"
 
 const courseSchema = new mongoose.Schema(
   {
@@ -27,10 +27,10 @@ const courseSchema = new mongoose.Schema(
     thumbnail: {
       type: String,
     },
-    enrolledStudents: {
+    enrolledStudents: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-    },
+    }],
     lectures: [
       {
         type: mongoose.Schema.Types.ObjectId,

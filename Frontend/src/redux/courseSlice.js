@@ -7,7 +7,7 @@ const courseSlice = createSlice({
     courseData: null,
   },
   reducers: {
-    setCeatorCourseData: (state, action) => {
+    setCreatorCourseData: (state, action) => {
       state.creatorCourseData = action.payload;
     },
     setCourseData: (state, action) => {
@@ -16,6 +16,6 @@ const courseSlice = createSlice({
   },
 });
 
-export const { setCeatorCourseData } = courseSlice.actions;
+export const { setCreatorCourseData } = courseSlice.actions;
 export const { setCourseData } = courseSlice.actions;
 export default courseSlice.reducer;
