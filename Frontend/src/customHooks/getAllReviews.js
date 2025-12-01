@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 import React, { useEffect } from "react";
 import { serverUrl } from "../App";
 import { useDispatch } from "react-redux";
@@ -13,14 +13,15 @@ const getAllReviews = () => {
         const result = await axios.get(serverUrl + "/api/review/getreviews", {
           withCredentials: true,
         });
-        dispatch(setReviewData(result.data));
+        dispatch(setReviewData(result.data.reviews));
         console.log(result.data);
       } catch (error) {
         console.log(error);
+         dispatch(setReviewData([]));
       }
     };
     allReviews();
-  }, []);
+  }, [dispatch]);
 };
 
 export default getAllReviews;

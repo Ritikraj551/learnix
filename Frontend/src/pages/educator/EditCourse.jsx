@@ -12,8 +12,8 @@ import { setCourseData } from "../../redux/courseSlice";
 const EditCourse = () => {
   const navigate = useNavigate();
   const { courseId } = useParams();
-  const thumb = useRef;
-  const [isPublished, setIsPublishd] = useState(false);
+  const thumb = useRef(null);
+  const [isPublished, setIsPublished] = useState(false);
   const [selectCourse, setSelectCourse] = useState(null);
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
@@ -21,7 +21,7 @@ const EditCourse = () => {
   const [category, setCategory] = useState("");
   const [level, setLevel] = useState("");
   const [price, setPrice] = useState("");
-  const [frontendImage, setFrontendImage] = useState("/assets/empty");
+  const [frontendImage, setFrontendImage] = useState("/assets/empty.jpg");
   const [backendImage, setBackendImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
@@ -40,7 +40,7 @@ const EditCourse = () => {
         serverUrl + `/api/course/getcourse/${courseId}`,
         { withCredentials: true }
       );
-      setSelectCourse(result.data);
+      setSelectCourse(result.data.course);
       console.log(result.data);
     } catch (error) {
       console.log(error);
@@ -56,7 +56,7 @@ const EditCourse = () => {
       setLevel(selectCourse.level || "");
       setPrice(selectCourse.price || "");
       setFrontendImage(selectCourse.thumbnail || "/assets/empty.jpg");
-      setIsPublishd(selectCourse?.isPublished);
+      setIsPublished(selectCourse?.isPublished);
     }
   }, [selectCourse]);
 
@@ -78,12 +78,12 @@ const EditCourse = () => {
 
     try {
       const result = await axios.post(
-        serverUrl + `api/course/editcourse/${courseId}`,
+        serverUrl + `/api/course/editcourse/${courseId}`,
         formData,
         { withCredentials: true }
       );
       console.log(result.data);
-      const updateData = result.data;
+      const updateData = result.data.course;
       if (updateData.isPublished) {
         const updateCourses = courseData.map((c) =>
           c._id === courseId ? updateData : c
@@ -129,35 +129,45 @@ const EditCourse = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-md">
       {/* top bar */}
-      <div className="flex items-center justify-center gap-5 md:justify-between flex-col md:flex-row mb-6 relative">
-        <FaArrowLeftLong
-          onClick={() => navigate("/courses")}
-          className="top-[-20%] md:top-[20%] absolute left-0 md:left-[2%] w-[22px] h-[22px] cursor-pointer"
-        />
-        <h2 className="text-2xl font-semibold md:pl-[60px]">
-          Add detailed information regarding the course
+      <div className="flex items-center gap-5 mb-6 flex-col md:flex-row">
+        <div className="self-start md:self-auto w-full md:w-auto flex items-center justify-start">
+          <FaArrowLeftLong
+            onClick={() => navigate("/courses")}
+            className="w-6 h-6 cursor-pointer"
+            aria-hidden
+          />
+        </div>
+
+        <h2 className="text-2xl font-semibold text-center md:text-left flex-1">
+          Edit course — Add detailed information regarding the course
         </h2>
-        <div className="space-x-2 space-y-2">
-          <button onClick={()=>navigate(`/createlecture/${selectCourse?._id}`)} className="bg-black text-white px-4 py-2 rounded-md">
-            Go to lectures page
-          </button>
+
+        <div className="w-full md:w-auto flex justify-end">
+          <div className="space-x-2">
+            <button
+              onClick={() => navigate(`/createlecture/${selectCourse?._id}`)}
+              className="bg-black text-white px-4 py-2 rounded-md"
+            >
+              Go to lectures page
+            </button>
+          </div>
         </div>
       </div>
 
       {/* form details */}
       <div className="bg-gray-50 p-6 rounded-md">
         <h2 className="text-lg font-medium mb-4">Basic Course Information</h2>
-        <div className="space-x-2 spce-y-2">
+        <div className="flex items-center space-x-2">
           {!isPublished ? (
             <button
-              onClick={() => setIsPublishd((prev) => !prev)}
+              onClick={() => setIsPublished((prev) => !prev)}
               className="bg-green-100 text-green-600 px-4 py-2 rounded-md border"
             >
               Click to Publish
             </button>
           ) : (
             <button
-              onClick={() => setIsPublishd((prev) => !prev)}
+              onClick={() => setIsPublished((prev) => !prev)}
               className="bg-red-100 text-red-600 px-4 py-2 rounded-md border"
             >
               Click to Unpublish
@@ -165,9 +175,13 @@ const EditCourse = () => {
           )}
           <button
             onClick={handleRemoveCourse}
-            className="bg-red-600 text-white px-4 py-2 rounded-md"
+            className="bg-red-600 text-white px-4 py-2 rounded-md flex items-center gap-2"
           >
-            Remove Course
+            {loading1 ? (
+              <ClipLoader size={18} color="white" />
+            ) : (
+              "Remove Course"
+            )}
           </button>
         </div>
         <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
@@ -301,18 +315,20 @@ const EditCourse = () => {
               id="thumbnail"
               type="file"
             />
+            <div className="relative w-[300px] h-[170px]">
+              <img
+                onClick={() => thumb.current.click()}
+                src={frontendImage}
+                alt="Course thumbnail"
+                className="w-full h-full object-cover border border-black rounded-[5px] cursor-pointer"
+              />
+              <FaEdit
+                onClick={() => thumb.current.click()}
+                className="w-5 h-5 absolute top-2 right-2 bg-white rounded p-1 border cursor-pointer"
+              />
+            </div>
           </div>
-          <div className="relative w-[300px] h-[170px]">
-            <img
-              onClick={() => thumb.current.click()}
-              src={frontendImage}
-              className="w-full border border-black rounded-[5px]"
-            />
-            <FaEdit
-              onClick={() => thumb.current.click()}
-              className="w-5 h-5 absolute top-2 right-2"
-            />
-          </div>
+
           <div className="flex items-center justify-start gap-[15px]">
             <button
               onClick={() => navigate("/courses")}

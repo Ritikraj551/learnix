@@ -8,7 +8,8 @@ import getCreatorCourse from "../../customHooks/getCreatorCourse";
 const Courses = () => {
   const navigate = useNavigate();
   const { creatorCourseData } = useSelector((state) => state.course);
-  getCreatorCourse();
+    getCreatorCourse();
+  
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -50,13 +51,13 @@ const Courses = () => {
                     {course?.thumbnail ? (
                       <img
                         src={course?.thumbnail}
-                        className="w-25 h-14 object-cover rounded-md"
+                        className="w-24 h-14 object-cover rounded-md"
                         alt=""
                       />
                     ) : (
                       <img
                         src="/assets/empty.jpg"
-                        className="w-25 h-14 object-cover rounded-md"
+                        className="w-24 h-14 object-cover rounded-md"
                         alt=""
                       />
                     )}

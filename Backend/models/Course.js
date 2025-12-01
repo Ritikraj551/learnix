@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema(
   {
@@ -22,15 +22,17 @@ const courseSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
-      required: true,
+      default: 0,
     },
     thumbnail: {
       type: String,
     },
-    enrolledStudents: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    }],
+    enrolledStudents: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     lectures: [
       {
         type: mongoose.Schema.Types.ObjectId,

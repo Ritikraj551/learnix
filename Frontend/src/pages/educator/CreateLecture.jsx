@@ -21,7 +21,7 @@ function CreateLecture() {
     setLoading(true);
     try {
       const result = await axios.post(
-        serverUrl + `/api/course/createlecture/${courseId}`,
+        serverUrl + `/api/lecture/create/${courseId}`,
         { lectureTitle },
         { withCredentials: true }
       );
@@ -41,7 +41,7 @@ function CreateLecture() {
     const getCourseLecture = async () => {
       try {
         const result = await axios.get(
-          serverUrl + `/api/course/courselecture/${courseId}`,
+          serverUrl + `/api/lecture/courselecture/${courseId}`,
           { withCredentials: true }
         );
         console.log(result.data);
@@ -51,7 +51,7 @@ function CreateLecture() {
       }
     };
     getCourseLecture();
-  }, []);
+  }, [courseId]);
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -98,12 +98,16 @@ function CreateLecture() {
           </button>
         </div>
         {/* lecture list */}
-        <div key={index} className="space-y-2">
+        <div className="space-y-2">
           {lectureData?.map((lecture, index) => (
-            <div className="bg-gray-100 rounded-md flex justify-between items-center p-3 text-sm font-medium text-gray-700">
+            <div
+              key={lecture._id}
+              className="bg-gray-100 rounded-md flex justify-between items-center p-3 text-sm font-medium text-gray-700"
+            >
               <span>
                 Lecture - {index + 1} : {lecture.lectureTitle}
               </span>
+
               <FaEdit
                 onClick={() =>
                   navigate(`/editlecture/${courseId}/${lecture._id}`)

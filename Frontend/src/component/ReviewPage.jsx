@@ -4,7 +4,7 @@ import ReviewCard from "./ReviewCard";
 
 function ReviewPage() {
   const { reviewData } = useSelector((state) => state.review);
-  const [latestReview, setLatestReview] = useState(null);
+  const [latestReview, setLatestReview] = useState([]);
 
   useEffect(() => {
     setLatestReview(reviewData?.slice(0, 6));

@@ -123,7 +123,8 @@ const editCourse = async (req, res) => {
 
     let thumbnail;
     if (req.file) {
-      thumbnail = await uploadOnCloudinary(req.file.path);
+      const uploaded = await uploadOnCloudinary(req.file.path);
+      thumbnail = uploaded?.url || uploaded?.secure_url;
     }
 
     let updateData = {
@@ -132,7 +133,7 @@ const editCourse = async (req, res) => {
       description,
       category,
       level,
-      isPublished,
+      isPublished: isPublished === "true",
       price,
       thumbnail,
     };

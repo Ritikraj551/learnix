@@ -27,22 +27,18 @@ function ViewCourse() {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchCourseData = async () => {
-    courseData.map((course) => {
-      if (course._id === courseId) {
-        dispatch(setSelectedCourse(course));
-        console.log(selectedCourse);
-
-        return null;
-      }
-    });
+  const fetchCourseData = () => {
+    const found = courseData.find((c) => c._id === courseId);
+    if (found) {
+      dispatch(setSelectedCourse(found));
+    }
   };
 
   const checkEnrollment = () => {
-    const verify = userData?.enrolledcourses?.some(
-      (c) =>
-        (typeof c === "string" ? c : c._id).toString() === courseId?.toString()
+    const verify = userData?.enrolledCourses?.some(
+      (c) => (typeof c === "string" ? c : c._id).toString() === courseId
     );
+
     if (verify) {
       setIsEnrolled(true);
     }
@@ -57,7 +53,7 @@ function ViewCourse() {
     const handleCreator = async () => {
       if (selectedCourse?.creator) {
         try {
-          const result = await axios.post(
+          const result = await axios.get(
             serverUrl + `/api/course/creator`,
             { userId: selectedCourse?.creator },
             { withCredentials: true }
@@ -147,7 +143,7 @@ function ViewCourse() {
   };
 
   const calculateAvgReview = (reviews) => {
-    if (!reviews || reviews.lenght === 0) {
+    if (!reviews || reviews.length === 0) {
       return 0;
     }
     const total = reviews.reduce((sum, review) => sum + review.rating, 0);
@@ -244,7 +240,7 @@ function ViewCourse() {
             <div className="flex flex-col gap-3">
               {selectedCourse?.lectures?.map((lecture, index) => (
                 <button
-                  disabled={lecture.isPreviewFree}
+                  disabled={!lecture.isPreviewFree}
                   key={index}
                   onClick={() => {
                     if (lecture.isPreviewFree) {

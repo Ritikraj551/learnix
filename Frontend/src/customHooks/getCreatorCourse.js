@@ -18,8 +18,13 @@ const getCreatorCourse = () => {
         console.log(result.data);
         dispatch(setCreatorCourseData(result.data.courses || []));
       } catch (error) {
-        console.log(error);
-        dispatch(setCreatorCourseData([]));
+        // If backend returns 404 (no courses), treat as empty list without noisy logs
+        if (error?.response?.status === 404) {
+          dispatch(setCreatorCourseData([]));
+        } else {
+          console.error(error);
+          dispatch(setCreatorCourseData([]));
+        }
       }
     };
     creatorCourses();

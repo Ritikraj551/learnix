@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-} from "reacharts";
+} from "recharts";
 
 const Dashboard = () => {
   const { userData } = useSelector((state) => state.user);
@@ -29,11 +29,12 @@ const Dashboard = () => {
       enrolled: course.enrollStudents?.length || 0,
     })) || [];
 
-  const totalEarning = creatorCourseData?.reduce((sum,course)=>{
-    const studentCount = course.enrolledStudents?.length||0;
-    const courseRevenue = course.price?course.price*studentCount:0
-    return sum+courseRevenue
-  },0)||0
+  const totalEarning =
+    creatorCourseData?.reduce((sum, course) => {
+      const studentCount = course.enrolledStudents?.length || 0;
+      const courseRevenue = course.price ? course.price * studentCount : 0;
+      return sum + courseRevenue;
+    }, 0) || 0;
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -54,7 +55,7 @@ const Dashboard = () => {
               Welcome,{userData?.name || "Educator"}
             </h1>
             <h1 className="text-xl font-semibold text-gray-800">
-              Total Earning : ₹{totalEarning.toLocaleString}
+              Total Earning : ₹{totalEarning.toLocaleString()}
             </h1>
             <p className="text-gray-600 text-sm">
               {userData?.description ||
@@ -89,9 +90,7 @@ const Dashboard = () => {
 
           {/* enrolled data */}
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold mb-4">
-              Students Enrollment
-            </h2>
+            <h2 className="text-lg font-semibold mb-4">Students Enrollment</h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={enrollData}>
                 <CartesianGrid strokeDasharray="3 3" />

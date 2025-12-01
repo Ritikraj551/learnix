@@ -17,12 +17,13 @@ courseRouter.post("/search", searchWithAI);
 courseRouter.post("/create", userAuth, createCourse);
 courseRouter.get("/published", getPublishedCourses);
 courseRouter.get("/creator", userAuth, getCreatorCourses);
-courseRouter.put(
+courseRouter.post(
   "/editcourse/:courseId",
   userAuth,
   upload.single("thumbnail"),
   editCourse
 );
+
 courseRouter.get("/getcourse/:courseId", userAuth, getCourseById);
 courseRouter.delete("/remove/:courseId", userAuth, removeCourse);
 
