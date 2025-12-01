@@ -14,7 +14,12 @@ const { searchWithAI } = require("../controllers/searchController");
 const courseRouter = express.Router();
 
 courseRouter.post("/search", searchWithAI);
-courseRouter.post("/create", userAuth, createCourse);
+courseRouter.post(
+  "/create",
+  userAuth,
+  upload.single("thumbnail"),
+  createCourse
+);
 courseRouter.get("/published", getPublishedCourses);
 courseRouter.get("/creator", userAuth, getCreatorCourses);
 courseRouter.post(

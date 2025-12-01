@@ -20,7 +20,7 @@ function ViewCourse() {
   const dispatch = useDispatch();
   const [selectedLecture, setSelectedLecture] = useState(null);
   const [creatorData, setCreatorData] = useState(null);
-  const [creatorCourses, setCreatorCourses] = useState(null);
+  const [creatorCourses, setCreatorCourses] = useState([]);
   const { userData } = useSelector((state) => state.user);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [rating, setRating] = useState(0);
@@ -53,13 +53,18 @@ function ViewCourse() {
     const handleCreator = async () => {
       if (selectedCourse?.creator) {
         try {
+          const creatorId =
+            typeof selectedCourse?.creator === "string"
+              ? selectedCourse.creator
+              : selectedCourse?.creator?._id;
           const result = await axios.get(
-            serverUrl + `/api/course/creator`,
-            { userId: selectedCourse?.creator },
-            { withCredentials: true }
+            serverUrl + `/api/user/creator/${creatorId}`,
+            {
+              withCredentials: true,
+            }
           );
           console.log(result.data);
-          setCreatorData(result.data);
+          setCreatorData(result.data.user);
         } catch (error) {
           console.log(error);
         }
@@ -70,10 +75,13 @@ function ViewCourse() {
 
   useEffect(() => {
     if (creatorData?._id && courseData.length > 0) {
-      const creatorCourse = courseData.filter(
-        (course) =>
-          course.creator === creatorData?._id && course._id !== courseId
-      );
+      const creatorCourse = courseData.filter((c) => {
+        const creatorId =
+          typeof c.creator === "string" ? c.creator : c.creator?._id;
+
+        return creatorId === creatorData?._id && c._id !== courseId;
+      });
+
       setCreatorCourses(creatorCourse);
     }
   }, [creatorData, courseData]);
@@ -97,7 +105,7 @@ function ViewCourse() {
           console.log("Razorpay Response", response);
           try {
             const verifyPayment = await axios.post(
-              serverUrl + "/api/order/verifypayment",
+              serverUrl + "/api/payment/verifypayment",
               {
                 ...response,
                 courseId,
@@ -146,7 +154,10 @@ function ViewCourse() {
     if (!reviews || reviews.length === 0) {
       return 0;
     }
-    const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const total = reviews.reduce(
+      (sum, review) => sum + Number(review.rating || 0),
+      0
+    );
     return (total / reviews.length).toFixed(1);
   };
 
@@ -235,7 +246,7 @@ function ViewCourse() {
               Course Curriculum
             </h2>
             <p className="text-sm text-gray-500 mb-4">
-              {selectedCourse?.lectures?.length} Lectures
+              {(selectedCourse?.lectures || []).length} Lectures
             </p>
             <div className="flex flex-col gap-3">
               {selectedCourse?.lectures?.map((lecture, index) => (

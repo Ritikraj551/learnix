@@ -52,7 +52,6 @@ const Courses = () => {
                       <img
                         src={course?.thumbnail}
                         className="w-24 h-14 object-cover rounded-md"
-                        alt=""
                       />
                     ) : (
                       <img

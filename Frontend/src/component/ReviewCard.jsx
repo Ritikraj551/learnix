@@ -16,7 +16,7 @@ function ReviewCard({
         {Array(5)
           .fill(0)
           .map((_,i) => (
-            <span key={1}>{i < rating ? <FaStar /> : <FaRegStar />}</span>
+            <span key={i}>{i < rating ? <FaStar /> : <FaRegStar />}</span>
           ))}
       </div>
       <p className="text-gray-700 text-sm">Review For : <span className="font-semibold">{courseTitle}</span></p>

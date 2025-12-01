@@ -19,9 +19,15 @@ const createCourse = async (req, res) => {
       });
     }
 
+    let thumbnailUrl = "";
+    if (req.file) {
+      thumbnailUrl = await uploadOnCloudinary(req.file.path);
+    }
+
     const course = await Course.create({
       title,
       category,
+      thumbnail: thumbnailUrl,
       creator: req.userId,
     });
 
@@ -29,6 +35,7 @@ const createCourse = async (req, res) => {
       success: true,
       message: "Course created successfully!",
       course,
+      thumbnailUrl, // For debugging
     });
   } catch (error) {
     return res.status(500).json({
@@ -121,7 +128,7 @@ const editCourse = async (req, res) => {
       });
     }
 
-    let thumbnail;
+    let thumbnail = course.thumbnail; // keep existing thumbnail by default
     if (req.file) {
       const uploaded = await uploadOnCloudinary(req.file.path);
       thumbnail = uploaded?.url || uploaded?.secure_url;
@@ -133,7 +140,7 @@ const editCourse = async (req, res) => {
       description,
       category,
       level,
-      isPublished: isPublished === "true",
+      isPublished: isPublished === "true" || isPublished === true, // handle both string & boolean
       price,
       thumbnail,
     };

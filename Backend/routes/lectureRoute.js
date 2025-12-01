@@ -11,7 +11,7 @@ const {
 
 lectureRouter.post("/create/:courseId", userAuth, createLecture);
 lectureRouter.get("/courselecture/:courseId", userAuth, getCourseLecture);
-lectureRouter.put(
+lectureRouter.post(
   "/edit/:lectureId",
   userAuth,
   upload.single("videoUrl"),

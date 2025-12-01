@@ -62,7 +62,7 @@ const EditCourse = () => {
 
   useEffect(() => {
     getCourseById();
-  }, []);
+  }, [courseId]);
 
   const handleEditCourse = async () => {
     setLoading(true);
@@ -73,7 +73,9 @@ const EditCourse = () => {
     formData.append("category", category);
     formData.append("level", level);
     formData.append("price", price);
-    formData.append("thumbnail", backendImage);
+    if (backendImage) {
+      formData.append("thumbnail", backendImage);
+    }
     formData.append("isPublished", isPublished);
 
     try {
@@ -145,6 +147,7 @@ const EditCourse = () => {
         <div className="w-full md:w-auto flex justify-end">
           <div className="space-x-2">
             <button
+              disabled={!selectCourse}
               onClick={() => navigate(`/createlecture/${selectCourse?._id}`)}
               className="bg-black text-white px-4 py-2 rounded-md"
             >
