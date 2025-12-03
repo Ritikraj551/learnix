@@ -37,67 +37,82 @@ const Dashboard = () => {
     }, 0) || 0;
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#ECF8FF] flex relative">
+      {/* Back button */}
       <FaArrowLeftLong
         onClick={() => navigate("/")}
-        className="w-[22px] absolute top-[10%] left-[10%] h-[22px] cursor-pointer"
+        className="w-6 h-6 text-[#195D74] absolute top-6 left-6 cursor-pointer hover:text-[#0E3D4E] transition"
       />
-      <div className="w-full px-6 py-10 bg-gray-50 space-y-10">
-        {/* Main section */}
-        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-6 flex flex-col md:flex-row items-center gap-6">
+
+      {/* Main Content */}
+      <div className="w-full px-6 py-14 space-y-10">
+        {/* Header Card */}
+        <div className="max-w-6xl mx-auto bg-linear-to-r from-[#63DDF0] to-[#3398A4] text-white rounded-2xl shadow-lg p-8 flex flex-col md:flex-row items-center gap-6 transition-all">
           <img
-            className="w-28 h-28 rounded-full object-cover border-4 border-black shadow-md"
+            className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
             src={userData?.photoUrl || userData?.name.slice(0, 1).toUpperCase()}
             alt="educator"
           />
-          <div className="text-center md:text-left space-y-1">
-            <h1 className="text-2xl font-bold text-gray-800">
-              Welcome,{userData?.name || "Educator"}
+
+          <div className="text-center md:text-left space-y-2">
+            <h1 className="text-3xl font-semibold drop-shadow-sm">
+              Welcome, {userData?.name || "Educator"}
             </h1>
-            <h1 className="text-xl font-semibold text-gray-800">
-              Total Earning : ₹{totalEarning.toLocaleString()}
+            <h1 className="text-xl font-semibold drop-shadow-sm">
+              Total Earnings: ₹{totalEarning.toLocaleString()}
             </h1>
-            <p className="text-gray-600 text-sm">
+            <p className="text-white/90 text-sm font-light">
               {userData?.description ||
-                "Start Creating Courses for Your Students"}
+                "Start creating impactful courses for your students."}
             </p>
-            <h1
+
+            <button
               onClick={() => navigate("/courses")}
-              className="px-2.5 text-center py-2.5 border-2 bg-black border-black text-white rounded-[10px] text-[15px] font-light flex items-center justify-center cursor-pointer"
+              className="mt-2 px-6 py-2.5 bg-white text-[#195D74] font-semibold rounded-xl shadow hover:bg-[#F0FEFF] transition"
             >
               Create Courses
-            </h1>
+            </button>
           </div>
         </div>
 
-        {/* Graph section */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* for course progress graph */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold mb-4">
+        {/* Graph Section */}
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+          {/* Lectures Graph */}
+          <div className="bg-white rounded-xl shadow-md p-6 border border-[#C7EEF5] hover:shadow-lg transition">
+            <h2 className="text-lg font-semibold text-[#195D74] mb-4">
               Course Progress (Lectures)
             </h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={courseProgressData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" stroke="#CCE8EE" />
+                <XAxis dataKey="name" stroke="#195D74" />
+                <YAxis stroke="#195D74" />
                 <Tooltip />
-                <Bar dataKey="lectures" fill="black" radius={[5, 5, 0, 0]} />
+                <Bar
+                  dataKey="lectures"
+                  fill="#4CC3D9"
+                  radius={[6, 6, 0, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          {/* enrolled data */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold mb-4">Students Enrollment</h2>
+          {/* Enrollment Graph */}
+          <div className="bg-white rounded-xl shadow-md p-6 border border-[#C7EEF5] hover:shadow-lg transition">
+            <h2 className="text-lg font-semibold text-[#195D74] mb-4">
+              Students Enrollment
+            </h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={enrollData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" stroke="#CCE8EE" />
+                <XAxis dataKey="name" stroke="#195D74" />
+                <YAxis stroke="#195D74" />
                 <Tooltip />
-                <Bar dataKey="enrolled" fill="black" radius={[5, 5, 0, 0]} />
+                <Bar
+                  dataKey="enrolled"
+                  fill="#63DDF0"
+                  radius={[6, 6, 0, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>

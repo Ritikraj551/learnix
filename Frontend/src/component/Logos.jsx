@@ -6,28 +6,47 @@ import { BiSupport } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 
 function Logos() {
+  const items = [
+    {
+      icon: <MdCastForEducation className="w-[32px] h-[32px]" />,
+      text: "Learn From 20k+ Courses",
+    },
+    {
+      icon: <SiOpenaccess className="w-[32px] h-[32px]" />,
+      text: "Unlimited Lifetime Access",
+    },
+    {
+      icon: <FaSackDollar className="w-[32px] h-[32px]" />,
+      text: "Affordable & Worth Every Penny",
+    },
+    {
+      icon: <BiSupport className="w-[32px] h-[32px]" />,
+      text: "24/7 Dedicated Support",
+    },
+    {
+      icon: <FaUsers className="w-[32px] h-[32px]" />,
+      text: "Active Learner Community",
+    },
+  ];
+
   return (
-    <div className="w-screen min-h-[90px] flex items-center justify-center flex-wrap gap-4 md:mb-[50px]">
-      <div className="flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]">
-        <MdCastForEducation className="w-[35px] h-[35px] fill-[#03394b]" />
-        20k+ Online Courses
-      </div>
-      <div className="flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]">
-        <SiOpenaccess className="w-[35px] h-[35px] fill-[#03394b]" />
-        Lifetime Access
-      </div>
-      <div className="flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]">
-        <FaSackDollar className="w-[35px] h-[35px] fill-[#03394b]" />
-        Value For Money
-      </div>
-      <div className="flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]">
-        <BiSupport className="w-[35px] h-[35px] fill-[#03394b]" />
-        Lifetime Support
-      </div>
-      <div className="flex items-center justify-center gap-2 px-5 py-3 rounded-3xl bg-gray-200 cursor-pointer text-[#03394b]">
-        <FaUsers className="w-[35px] h-[35px] fill-[#03394b]" />
-        Community Support
-      </div>
+    <div className="w-screen min-h-[90px] flex flex-wrap items-center justify-center gap-4 md:mb-[50px] px-3 py-8">
+      {items.map((item, index) => (
+        <div
+          key={index}
+          className="
+            flex items-center justify-center gap-3 
+            px-6 py-3 rounded-3xl cursor-pointer
+            bg-gradient-to-r from-[#1fa487]/20 to-[#29d7c3]/20
+            text-[#0b433a] font-medium backdrop-blur-xl
+            hover:scale-105 transition-all duration-300
+            shadow-sm hover:shadow-md
+          "
+        >
+          <span className="text-[#0b433a]">{item.icon}</span>
+          <span className="text-[15px] md:text-[16px]">{item.text}</span>
+        </div>
+      ))}
     </div>
   );
 }

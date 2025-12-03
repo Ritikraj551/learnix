@@ -13,12 +13,14 @@ import { signInWithPopup } from "firebase/auth";
 function SignUp() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("student");
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+
   const handleSignup = async () => {
     setLoading(true);
     try {
@@ -28,158 +30,164 @@ function SignUp() {
         { withCredentials: true }
       );
       dispatch(setUserData(result.data));
-      setLoading(false);
-      navigate("/");
       toast.success("Signup Successful");
+      navigate("/");
     } catch (error) {
-      console.log(error);
-      setLoading(false);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Signup failed");
     }
+    setLoading(false);
   };
 
   const googleSignUp = async () => {
     try {
       const response = await signInWithPopup(auth, provider);
       let user = response.user;
-      let name = user.displayName;
-      let email = user.email;
 
       const result = await axios.post(
         serverUrl + "/api/auth/googleauth",
-        { name, email, role },
+        { name: user.displayName, email: user.email, role },
         { withCredentials: true }
       );
       dispatch(setUserData(result.data));
-      navigate("/");
       toast.success("Signup Successful");
+      navigate("/");
     } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message);
     }
   };
 
-
   return (
-    <div className="bg-[#dddbdb] w-screen h-screen flex items-center justify-center">
+    <div className="bg-gray-100 w-screen h-screen flex items-center justify-center p-3">
       <form
-        className="w-[90%] md:w-200 h-150 bg-white shadow-xl rounded-2xl flex"
         onSubmit={(e) => e.preventDefault()}
+        className="w-[95%] md:w-[750px] min-h-[520px] bg-white shadow-xl rounded-3xl flex overflow-hidden"
       >
-        {/* Left div */}
-        <div className="md:w-[50%] w-full h-full flex flex-col items-center justify-center gap-3">
-          <div>
-            <h1 className="font-semibold text-black text-2xl">
-              Let's get started
-            </h1>
-            <h2 className="text-[#999797] text-[18px]">Create your account</h2>
+        {/* LEFT */}
+        <div className="md:w-[50%] w-full flex flex-col items-center justify-center gap-4 p-6">
+
+          <div className="text-center">
+            <h1 className="font-bold text-gray-900 text-3xl">Create Account</h1>
+            <p className="text-gray-500 text-[16px]">
+              Join Mentora and start learning
+            </p>
           </div>
-          <div className="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
-            <label htmlFor="name" className="font-semibold">
-              Name
-            </label>
+
+          {/* Name */}
+          <div className="flex flex-col gap-1 w-[90%]">
+            <label className="font-medium">Name</label>
             <input
-              id="name"
               type="text"
-              className="border w-full h-[35px] border-[#e7e6e6] text-[15px] px-5"
+              className="border border-gray-300 rounded-lg h-11 px-4 focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="Your name"
-              onChange={(e) => setName(e.target.value)}
               value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
-            <label htmlFor="email" className="font-semibold">
-              Email
-            </label>
+
+          {/* Email */}
+          <div className="flex flex-col gap-1 w-[90%]">
+            <label className="font-medium">Email</label>
             <input
-              id="email"
-              type="text"
-              className="border w-full h-[35px] border-[#e7e6e6] text-[15px] px-5"
+              type="email"
+              className="border border-gray-300 rounded-lg h-11 px-4 focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="Your email"
-              onChange={(e) => setEmail(e.target.value)}
               value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="flex flex-col relative gap-1 w-[80%] items-start justify-center px-3">
-            <label htmlFor="password" className="font-semibold">
-              Password
-            </label>
+
+          {/* Password */}
+          <div className="flex flex-col relative gap-1 w-[90%]">
+            <label className="font-medium">Password</label>
             <input
-              id="password"
               type={show ? "text" : "password"}
-              className="border w-full h-[35px] border-[#e7e6e6] text-[15px] px-5"
+              className="border border-gray-300 rounded-lg h-11 px-4 focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="Your password"
-              onChange={(e) => setPassword(e.target.value)}
               value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            {!show ? (
-              <IoEyeOutline
-                className="absolute w-5 h-5 cursor-pointer right-[5%] bottom-[10%]"
-                onClick={() => setShow((prev) => !prev)}
+            {show ? (
+              <IoEye
+                className="absolute right-3 bottom-3 w-5 h-5 cursor-pointer text-gray-500"
+                onClick={() => setShow(false)}
               />
             ) : (
-              <IoEye
-                className="absolute w-5 h-5 cursor-pointer right-[5%] bottom-[10%]"
-                onClick={() => setShow((prev) => !prev)}
+              <IoEyeOutline
+                className="absolute right-3 bottom-3 w-5 h-5 cursor-pointer text-gray-500"
+                onClick={() => setShow(true)}
               />
             )}
           </div>
 
-          {/* Roles */}
-          <div className="flex md:w-[50%] w-[70%] items-center justify-between ">
+          {/* Role selector */}
+          <div className="flex w-[90%] items-center justify-between">
             <span
               onClick={() => setRole("student")}
-              className={`px-2.5 py-[5px] border-2 border-[#e7e6e6] rounded-2xl cursor-pointer hover:border-black ${
-                role === "student" ? "border-black" : "border-[#646464]"
+              className={`px-4 py-2 rounded-xl border cursor-pointer transition ${
+                role === "student"
+                  ? "bg-teal-600 text-white border-teal-600"
+                  : "border-gray-300 text-gray-700 hover:border-teal-600"
               }`}
             >
               Student
             </span>
+
             <span
               onClick={() => setRole("educator")}
-              className={`px-2.5 py-[5px] border-2 border-[#e7e6e6] rounded-2xl cursor-pointer hover:border-black ${
-                role === "educator" ? "border-black" : "border-[#646464]"
+              className={`px-4 py-2 rounded-xl border cursor-pointer transition ${
+                role === "educator"
+                  ? "bg-teal-600 text-white border-teal-600"
+                  : "border-gray-300 text-gray-700 hover:border-teal-600"
               }`}
             >
               Educator
             </span>
           </div>
+
+          {/* Signup Button */}
           <button
             onClick={handleSignup}
             disabled={loading}
-            className="w-[80%] h-10 bg-black text-white cursor-pointer flex items-center justify-center rounded-[5px]"
+            className="w-[90%] h-11 bg-teal-600 hover:bg-teal-700 text-white rounded-xl shadow-md transition flex items-center justify-center"
           >
-            {loading ? <ClipLoader size={30} color="white" /> : "SignUp"}
+            {loading ? <ClipLoader size={25} color="white" /> : "Sign Up"}
           </button>
-          <div className="w-[80%] flex items-center gap-2">
-            <div className="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
-            <div className="w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center">
-              Or continue
-            </div>
-            <div className="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
+
+          {/* OR */}
+          <div className="w-[90%] flex items-center gap-3">
+            <div className="flex-1 h-[1px] bg-gray-300"></div>
+            <span className="text-gray-500">or continue with</span>
+            <div className="flex-1 h-[1px] bg-gray-300"></div>
           </div>
+
+          {/* Google */}
           <div
             onClick={googleSignUp}
-            className="w-[80%] h-10 border border-black rounded-[5px] flex items-center justify-center"
+            className="w-[90%] h-11 border border-teal-600 rounded-xl flex items-center justify-center gap-2 cursor-pointer hover:bg-teal-50 transition"
           >
-            <img src="/assets/google.jpg" className="w-[25px]" alt="" />
-            <span className="text-[18px] text-gray-500">oogle</span>
+            <img src="/assets/google.jpg" className="w-[24px]" />
+            <span className="text-gray-600 text-lg">Google</span>
           </div>
-          <div className="text-[#6f6f6f]">
-            Already have an account?
+
+          {/* Login Link */}
+          <p className="text-gray-600">
+            Already have an account?{" "}
             <span
               onClick={() => navigate("/login")}
-              className="underline underline-offset-1 text-black"
+              className="text-teal-600 underline cursor-pointer"
             >
-              Login
+              Log in
             </span>
-          </div>
+          </p>
         </div>
 
-        {/* Right div */}
-        <div className="w-[50%] h-full rounded-r-2xl bg-black md:flex items-center justify-center flex-col hidden">
-          <img src="/assets/logo.jpg" alt="logo" className="w-30 shadow-2xl" />
-          <span className="text-2xl text-white">MENTORA</span>
+        {/* RIGHT */}
+        <div className="hidden md:flex w-[50%] bg-teal-600 text-white items-center justify-center flex-col p-10">
+          <img src="/assets/logo.jpg" className="w-32 rounded-xl shadow-lg" />
+          <h1 className="text-3xl mt-3 font-semibold">MENTORA</h1>
+          <p className="text-center mt-2 opacity-90">
+            AI-powered learning for everyone
+          </p>
         </div>
       </form>
     </div>

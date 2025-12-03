@@ -6,9 +6,7 @@ function Card({ thumbnail, title, category, price, id, reviews }) {
   const navigate = useNavigate();
 
   const calculateAvgReview = (reviews) => {
-    if (!reviews || reviews.length === 0) {
-      return 0;
-    }
+    if (!reviews || reviews.length === 0) return 0;
     const total = reviews.reduce((sum, review) => sum + review.rating, 0);
     return (total / reviews.length).toFixed(1);
   };
@@ -18,23 +16,30 @@ function Card({ thumbnail, title, category, price, id, reviews }) {
   return (
     <div
       onClick={() => navigate(`/viewcourse/${id}`)}
-      className="max-w-ms w-full bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-300 cursor-pointer"
+      className="w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 cursor-pointer flex flex-col"
     >
-      <img src={thumbnail||"/assets/empty.jpg"} alt={title} className="w-full h-48 object-cover" />
+      {/* Thumbnail */}
+      <img
+        src={thumbnail || "/assets/empty.jpg"}
+        alt={title}
+        className="w-full h-48 object-cover rounded-t-2xl"
+      />
 
-      <div className="p-5 space-y-2">
-        <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+      {/* Content */}
+      <div className="p-5 flex flex-col gap-2">
+        {/* Title */}
+        <h2 className="text-lg font-semibold text-gray-900 line-clamp-2">{title}</h2>
 
-        <span className="px-2 py-0.5 bg-gray-100 rounded-full text-gray-700 capitalize">
+        {/* Category */}
+        <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm capitalize">
           {category}
         </span>
 
-        <div className="flex justify-between text-sm text-gray-600 mt-3 px-2.5">
-          <span className="font-semibold text-gray-800">₹{price}</span>
-
-          <span className="flex items-center gap-1">
-            <FaStar className="text-yellow-500" />
-            {avgRating}
+        {/* Price & Rating */}
+        <div className="flex justify-between items-center mt-3 text-gray-800 font-medium">
+          <span className="text-teal-600 text-lg font-semibold">₹{price}</span>
+          <span className="flex items-center gap-1 text-yellow-500">
+            <FaStar /> {avgRating}
           </span>
         </div>
       </div>

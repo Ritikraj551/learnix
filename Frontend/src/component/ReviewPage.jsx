@@ -15,17 +15,24 @@ function ReviewPage() {
   }, [reviewData]);
 
   return (
-    <div className="flex items-center justify-center flex-col">
-      <h1 className="md:text-[45px] text-[30px] font-semibold text-center mt-[30px] px-5">
+    <div className="flex flex-col items-center justify-center w-full bg-[#f8fafc] py-14">
+      {/* Heading */}
+      <h1 className="text-[30px] md:text-[45px] font-bold text-center px-5 leading-tight text-[#03394b]">
         Real Reviews for Real Courses
       </h1>
-      <span className="lg:w-[50%] md:w-[80%] text-[15px] text-center mt-[30px] mb-[30px] px-5">
+
+      {/* Subheading */}
+      <p className="mt-4 mb-12 text-center text-[15px] md:text-[17px] text-gray-600 px-5 lg:w-[55%] md:w-[75%] leading-relaxed">
         Discover how our courses are transforming learning experiences through
         real feedback from students and professionals worldwide.
-      </span>
+      </p>
 
-      <div className="w-full min-h-screen flex items-center justify-center flex-wrap gap-[50px] lg:p-[50px] md:p-[30px] p-2.5 mb-10">
-        {latestReview?.length > 0 ? (
+      {/* Reviews Grid */}
+      <div
+        className="w-full flex flex-wrap items-center justify-center gap-8 lg:gap-10 
+                      px-3 md:px-8 lg:px-12 mb-10"
+      >
+        {latestReview.length > 0 ? (
           latestReview.map((review, index) => (
             <ReviewCard
               key={review._id || index}

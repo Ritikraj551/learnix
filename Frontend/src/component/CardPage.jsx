@@ -7,19 +7,25 @@ function CardPage() {
   const [popularCourses, setPopularCourses] = useState([]);
 
   useEffect(() => {
+    // Display top 6 courses (could sort by popularity if available)
     setPopularCourses(courseData?.slice(0, 6));
   }, [courseData]);
 
   return (
-    <div className="relative flex items-center justify-center flex-col">
-      <h1 className="md:text-[45px] text-[30px] font-semibold text-center mt-[30px] px-5">
+    <div className="relative flex flex-col items-center justify-center px-5 py-20">
+      {/* Heading */}
+      <h1 className="text-center text-3xl md:text-5xl font-semibold mt-8">
         Our Popular Courses
       </h1>
-      <span className="lg:w-[50%] md:w-[80%] text-[15px] text-center mt-[30px] mb-[30px] px-5">
+
+      {/* Subtitle */}
+      <p className="text-center text-sm md:text-base text-gray-600 mt-4 mb-10 max-w-3xl">
         Explore top-rated courses designed to boost your skills, enhance
         careers, and unlock opportunities in tech, AI, business, and beyond.
-      </span>
-      <div className="w-full flex items-center justify-center flex-wrap gap-[50px] lg:p-[50px] md:p-[30px] p-2.5 mb-10">
+      </p>
+
+      {/* Cards Grid */}
+      <div className="w-full flex flex-wrap justify-center gap-6 md:gap-10 lg:gap-12">
         {popularCourses?.map((course, index) => (
           <Card
             key={index}

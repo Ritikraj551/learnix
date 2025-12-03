@@ -37,7 +37,7 @@ function AllCourses() {
   }, [category]);
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-teal-50">
       <Nav />
 
       <button
@@ -49,8 +49,8 @@ function AllCourses() {
 
       {/* sidebar */}
       <aside
-        className={`w-[260px] h-screen overflow-y-auto bg-black fixed top-0 left-0 py-[130px] border-r border-gray-200 shadow-md transition-transform duration-300 z-5 ${
-          isSidebarVisible ? "translate-x-0" : "-translate-x"
+        className={`w-[260px] px-4 h-screen overflow-y-auto bg-teal-600 fixed top-0 left-0 py-[140px] border-r border-gray-200 shadow-md transition-transform duration-300 z-5 ${
+          isSidebarVisible ? "translate-x-0" : "-translate-x-full"
         } md:block md:translate-x-0`}
       >
         <h2 className="text-xl font-bold flex items-center justify-center gap-2 text-gray-50 mb-6">
@@ -62,7 +62,7 @@ function AllCourses() {
         </h2>
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="space-y-4 tetx-sm bg-gray-600 border-white text-white border p-5 rounded-2xl"
+          className="space-y-4 text-sm bg-gray-600 border-white text-white border p-5 rounded-2xl"
         >
           <button
             onClick={() => navigate("/search")}

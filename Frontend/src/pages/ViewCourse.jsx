@@ -165,213 +165,184 @@ function ViewCourse() {
   const avgRating = calculateAvgReview(selectedCourse?.reviews);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-6xl mx-auto bg-white shadow-md rounded-xl p-6 space-y-6 relative">
-        {/* top section */}
-        <div className="flex flex-col md:flex-row gap-6">
-          {/* thumbnail */}
-          <div className="w-full md:w-1/2">
-            <FaArrowLeftLong
-              onClick={() => navigate("/")}
-              className="text-black w-[22px] h-[22px] cursor-pointer"
-            />
-            {selectedCourse?.thumbnail ? (
-              <img
-                className="rounded-xl w-full object-cover"
-                src={selectedCourse?.thumbnail}
-              />
-            ) : (
-              <img
-                className="rounded-xl w-full object-cover"
-                src="/assets/empty.jpg"
-              />
-            )}
-          </div>
-          {/* Course Info */}
-          <div className="flex-1 space-y-2 mt-5">
-            <h2 className="text-2xl font-bold">{selectedCourse?.title}</h2>
-            <p className="text-gray-600">{selectedCourse?.subTitle}</p>
-            <div className="flex items-start flex-col justify-between">
-              <div className="flex text-yellow-500 font-medium gap-2">
-                <span className="flex items-center justify-start gap-1">
-                  <FaStar />
-                  {avgRating}
-                </span>
-                <span className="text-gray-400">(1200 Reviews)</span>
-              </div>
-              <div>
-                <span className="text-xl font-semibold text-black">
-                  ₹{selectedCourse?.price}
-                </span>{" "}
-                <span className="line-through text-sm text-gray-400">₹599</span>
-              </div>
-              <ul className="text-sm text-gray-700 space-y-1 pt-2">
-                <li>10+ hours of video content</li>
-                <li>Lifetime access to course</li>
-              </ul>
-              {!isEnrolled ? (
-                <button
-                  onClick={() => handleEnroll(userData._id, courseId)}
-                  className="bg-black text-white px-6 py-2 rounded hover:bg-gray-700 mt-3 cursor-pointer"
-                >
-                  Enroll Now
-                </button>
-              ) : (
-                <button
-                  onClick={() => navigate(`/viewlecture/${courseId}`)}
-                  className="bg-green-100 text-green-500 px-6 py-2 rounded hover:bg-gray-700 mt-3 cursor-pointer"
-                >
-                  Watch Now
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
+  <div className="min-h-screen bg-[#0b0f12] p-6 text-gray-200">
+  <div className="max-w-6xl mx-auto bg-[#1c1f23] shadow-lg rounded-2xl p-6 space-y-6 relative border border-gray-700">
 
-        <div>
-          <h2 className="text-xl font-semibold mb-2">What you'll Learn</h2>
-          <ul className="list-disc pl-6 text-gray-700 space-y-1">
-            <li>Learn {selectedCourse?.category} from Beginning</li>
-          </ul>
-        </div>
-        <div>
-          <h2 className="text-xl font-semibold mb-2">Who This Course is For</h2>
-          <p className="text-gray-700">
-            Beginners, aspiring developers, and professionals looking to upgrade
-            skills.
-          </p>
-        </div>
-        <div className="flex flex-col md:flex-row gap-6">
-          <div className="bg-white w-full md:w-2/5 p-6 rounded-2xl shadow-lg border border-gray-200">
-            <h2 className="text-xl font-bold mb-1 text-gray-800">
-              Course Curriculum
-            </h2>
-            <p className="text-sm text-gray-500 mb-4">
-              {(selectedCourse?.lectures || []).length} Lectures
-            </p>
-            <div className="flex flex-col gap-3">
-              {selectedCourse?.lectures?.map((lecture, index) => (
-                <button
-                  disabled={!lecture.isPreviewFree}
-                  key={index}
-                  onClick={() => {
-                    if (lecture.isPreviewFree) {
-                      setSelectedLecture(lecture);
-                    }
-                  }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-200 text-left ${
-                    lecture.isPreviewFree
-                      ? "hover:bg-gray-100 cursor-pointer border-gray-300"
-                      : "cursor-not-allowed opacity-60 border-gray-200"
-                  } ${
-                    selectedLecture?.lectureTitle === lecture?.lectureTitle
-                      ? "bg-gray-100 border-gray-400"
-                      : ""
-                  }`}
-                >
-                  <span className="text-lg text-gray-700">
-                    {lecture.isPreviewFree ? <FaPlayCircle /> : <FaLock />}
-                  </span>
-                  <span className="text-sm font-medium text-gray-800">
-                    {lecture.lectureTitle}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="bg-white w-full md:w-3/5 p-6 rounded-2xl shadow-lg border border-gray-200">
-            <div className="aspect-video w-full rounded-lg overflow-hidden mb-4 bg-black flex items-center justify-center">
-              {selectedLecture?.videoUrl ? (
-                <video
-                  src={selectedLecture?.videoUrl}
-                  controls
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <span className="text-white text-sm">
-                  Select a preview lecture to watch
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="mt-8 border-t pt-6">
-          <h2 className="text-xl font-semibold mb-2">Write a Review</h2>
-          <div className="mb-4">
-            <div className="flex gap-1 mb-2">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <FaStar
-                  key={star}
-                  onClick={() => setRating(star)}
-                  className={
-                    star <= rating ? "fill-amber-300" : "fill-gray-300"
-                  }
-                />
-              ))}
-            </div>
-            <textarea
-              onChange={(e) => setComment(e.target.value)}
-              value={comment}
-              rows={3}
-              placeholder="Write your reviews here..."
-              className="w-full border border-gray-300 rounded-lg p-2"
-            />
-            <button
-              disabled={loading}
-              onClick={handleReview}
-              className="bg-black text-white mt-3 px-4 py-2 rounded hover:bg-gray-800"
-            >
-              {loading ? (
-                <ClipLoader size={30} color="white" />
-              ) : (
-                "Submit Review"
-              )}
-            </button>
-          </div>
-        </div>
+    {/* Top Section */}
+    <div className="flex flex-col md:flex-row gap-6">
+      {/* Thumbnail */}
+      <div className="w-full md:w-1/2 relative">
+        <FaArrowLeftLong
+          onClick={() => navigate("/")}
+          className="text-white w-[22px] -mt-2 mb-2 h-[22px] cursor-pointer"
+        />
+        <img
+          className="rounded-xl w-full object-cover"
+          src={selectedCourse?.thumbnail || "/assets/empty.jpg"}
+        />
+      </div>
 
-        {/* for creator info */}
-        <div className="flex items-center gap-4 pt-4 border-t">
-          {creatorData?.photoUrl ? (
-            <img
-              src={creatorData?.photoUrl}
-              className="border border-gray-200 w-16 h-16 rounded-full object-cover"
-            />
-          ) : (
-            <img
-              src="/assets/empty.jpg"
-              className="border border-gray-200 w-16 h-16 rounded-full object-cover"
-            />
-          )}
+      {/* Course Info */}
+      <div className="flex-1 space-y-2 mt-5">
+        <h2 className="text-2xl font-bold text-white">{selectedCourse?.title}</h2>
+        <p className="text-gray-400">{selectedCourse?.subTitle}</p>
+
+        <div className="flex flex-col gap-3 mt-3">
+          <div className="flex items-center gap-2 text-yellow-400 font-medium">
+            <span className="flex items-center gap-1">
+              <FaStar />
+              {avgRating}
+            </span>
+            <span className="text-gray-500">(1200 Reviews)</span>
+          </div>
           <div>
-            <h2 className="text-lg font-semibold">{creatorData?.name}</h2>
-            <p className="md:text-sm text-gray-600 text-[10px]">
-              {creatorData?.description}
-            </p>
-            <p className="md:text-sm text-gray-600 text-[10px]">
-              {creatorData?.email}
-            </p>
+            <span className="text-xl font-semibold text-white">₹{selectedCourse?.price}</span>
+            <span className="line-through text-sm text-gray-500 ml-2">₹599</span>
           </div>
-        </div>
-        <div>
-          <p className="text-xl font-semibold mb-2">
-            Other Published Courses by the Educator -
-          </p>
-        </div>
-        <div className="w-full transition-all duration-300 py-5 flex items-start justify-center lg:justify-start flex-wrap gap-6 lg:px-20">
-          {creatorCourses?.map((course, index) => (
-            <Card
-              key={index}
-              thumbnail={course.thumbnail}
-              id={course._id}
-              prices={course.price}
-              title={course.title}
-              category={course.category}
-            />
-          ))}
+          <ul className="text-sm text-gray-400 space-y-1 pt-2">
+            <li>10+ hours of video content</li>
+            <li>Lifetime access to course</li>
+          </ul>
+
+          {!isEnrolled ? (
+            <button
+              onClick={() => handleEnroll(userData._id, courseId)}
+              className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 mt-3 cursor-pointer"
+            >
+              Enroll Now
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate(`/viewlecture/${courseId}`)}
+              className="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-600 mt-3 cursor-pointer"
+            >
+              Watch Now
+            </button>
+          )}
         </div>
       </div>
     </div>
+
+    {/* Learning & Audience Sections */}
+    <div>
+      <h2 className="text-xl font-semibold mb-2 text-white">What you'll Learn</h2>
+      <ul className="list-disc pl-6 text-gray-400 space-y-1">
+        <li>Learn {selectedCourse?.category} from Beginning</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 className="text-xl font-semibold mb-2 text-white">Who This Course is For</h2>
+      <p className="text-gray-400">
+        Beginners, aspiring developers, and professionals looking to upgrade skills.
+      </p>
+    </div>
+
+    {/* Curriculum & Video Preview */}
+    <div className="flex flex-col md:flex-row gap-6">
+      <div className="bg-[#0f1215] w-full md:w-2/5 p-6 rounded-2xl shadow-md border border-gray-700">
+        <h2 className="text-xl font-bold mb-1 text-white">Course Curriculum</h2>
+        <p className="text-sm text-gray-400 mb-4">{(selectedCourse?.lectures || []).length} Lectures</p>
+        <div className="flex flex-col gap-3 max-h-[400px] overflow-y-auto">
+          {selectedCourse?.lectures?.map((lecture, index) => (
+            <button
+              disabled={!lecture.isPreviewFree}
+              key={index}
+              onClick={() => lecture.isPreviewFree && setSelectedLecture(lecture)}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-200 text-left ${
+                lecture.isPreviewFree
+                  ? "hover:bg-gray-800 cursor-pointer border-gray-600"
+                  : "cursor-not-allowed opacity-50 border-gray-700"
+              } ${selectedLecture?.lectureTitle === lecture?.lectureTitle ? "bg-gray-800 border-gray-500" : ""}`}
+            >
+              <span className="text-lg text-gray-200">{lecture.isPreviewFree ? <FaPlayCircle /> : <FaLock />}</span>
+              <span className="text-sm font-medium text-white">{lecture.lectureTitle}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-[#0f1215] w-full md:w-3/5 p-6 rounded-2xl shadow-md border border-gray-700">
+        <div className="aspect-video w-full rounded-lg overflow-hidden bg-black flex items-center justify-center">
+          {selectedLecture?.videoUrl ? (
+            <video
+              src={selectedLecture?.videoUrl}
+              controls
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="text-gray-400 text-sm">
+              Select a preview lecture to watch
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+
+    {/* Reviews */}
+    <div className="mt-8 border-t border-gray-700 pt-6">
+      <h2 className="text-xl font-semibold mb-2 text-white">Write a Review</h2>
+      <div className="mb-4">
+        <div className="flex gap-1 mb-2">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <FaStar
+              key={star}
+              onClick={() => setRating(star)}
+              className={star <= rating ? "fill-yellow-400 cursor-pointer" : "fill-gray-600 cursor-pointer"}
+            />
+          ))}
+        </div>
+        <textarea
+          onChange={(e) => setComment(e.target.value)}
+          value={comment}
+          rows={3}
+          placeholder="Write your reviews here..."
+          className="w-full border border-gray-700 bg-[#1c1f23] rounded-lg p-2 text-gray-200 placeholder-gray-400"
+        />
+        <button
+          disabled={loading}
+          onClick={handleReview}
+          className="bg-black text-white mt-3 px-4 py-2 rounded hover:bg-gray-800"
+        >
+          {loading ? <ClipLoader size={30} color="white" /> : "Submit Review"}
+        </button>
+      </div>
+    </div>
+
+    {/* Creator Info */}
+    <div className="flex items-center gap-4 pt-4 border-t border-gray-700">
+      <img
+        src={creatorData?.photoUrl || "/assets/empty.jpg"}
+        className="border border-gray-600 w-16 h-16 rounded-full object-cover"
+      />
+      <div>
+        <h2 className="text-lg font-semibold text-white">{creatorData?.name}</h2>
+        <p className="text-sm text-gray-400">{creatorData?.description}</p>
+        <p className="text-sm text-gray-400">{creatorData?.email}</p>
+      </div>
+    </div>
+
+    {/* Other Courses */}
+    <div>
+      <p className="text-xl font-semibold mb-2 text-white">
+        Other Published Courses by the Educator -
+      </p>
+    </div>
+    <div className="w-full transition-all duration-300 py-5 flex items-start justify-center lg:justify-start flex-wrap gap-6 lg:px-20">
+      {creatorCourses?.map((course, index) => (
+        <Card
+          key={index}
+          thumbnail={course.thumbnail}
+          id={course._id}
+          prices={course.price}
+          title={course.title}
+          category={course.category}
+        />
+      ))}
+    </div>
+  </div>
+</div>
+
   );
 }
 

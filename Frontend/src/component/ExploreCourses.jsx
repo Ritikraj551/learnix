@@ -12,76 +12,76 @@ import { useNavigate } from "react-router-dom";
 
 function ExploreCourses() {
   const navigate = useNavigate();
+
+  const cards = [
+    { icon: <TbDeviceDesktopAnalytics className="w-[42px] h-[42px]" />, label: "Web Development" },
+    { icon: <LiaUikit className="w-[42px] h-[42px]" />, label: "UI / UX Design" },
+    { icon: <MdAppShortcut className="w-[42px] h-[42px]" />, label: "App Development" },
+    { icon: <FaHackerrank className="w-[42px] h-[42px]" />, label: "Ethical Hacking" },
+    { icon: <AiFillOpenAI className="w-[42px] h-[42px]" />, label: "AI & ML" },
+    { icon: <SiGoogledataproc className="w-[42px] h-[42px]" />, label: "Data Science" },
+    { icon: <BsClipboard2DataFill className="w-[42px] h-[42px]" />, label: "Data Analytics" },
+    { icon: <FaTools className="w-[42px] h-[42px]" />, label: "AI Tools" },
+  ];
+
   return (
     <div className="w-screen min-h-[50vh] lg:h-[50vh] flex flex-col lg:flex-row items-center justify-center gap-4 px-[30px]">
-      {/* left/top div */}
-      <div className="w-full lg:w-[350px] lg:h-full h-[400px] flex flex-col items-start justify-center gap-1 md:px-10 px-5">
-        <span className="text-[35px] font-semibold">Explore</span>
-        <span className="text-[35px] font-semibold">Our Courses</span>
-        <p className="text-[17px]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dolore
-          earum, commodi accusantium natus ex cupiditate porro minus cum
-          incidunt laudantium molestias nemo ad vel? Dolorum commodi nihil
-          numquam officiis.
+
+      {/* Left Section */}
+      <div className="w-full lg:w-[350px] lg:h-full h-[400px] flex flex-col items-start justify-center gap-2 md:px-10 px-5">
+        <span className="text-[38px] font-semibold bg-gradient-to-r from-[#1fa487] to-[#29d7c3] text-transparent bg-clip-text">
+          Explore
+        </span>
+        <span className="text-[38px] font-semibold bg-gradient-to-r from-[#29d7c3] to-[#1fa487] text-transparent bg-clip-text">
+          Our Courses
+        </span>
+
+        <p className="text-[16px] text-gray-600 leading-relaxed">
+          Unlock a wide range of curated, industry-ready courses designed to sharpen
+          your skills and elevate your career. Learn by doing, and grow with expert guidance.
         </p>
+
         <button
           onClick={() => navigate("/allcourses")}
-          className="cursor-pointer px-5 py-2.5 border-2 bg-black border-white text-white rounded-[10px] text-[18px] font-light flex gap-2 mt-10"
+          className="
+            cursor-pointer px-6 py-2.5 rounded-xl text-[18px] font-light mt-8 
+            flex gap-2 items-center border border-[#1fa487]
+            bg-[#1fa487] text-white hover:bg-[#168e71]
+            transition-all duration-300
+          "
         >
-          Explore Courses <SiViaplay className="w-[30px] h-[30px] fill-white" />
+          Explore Courses
+          <SiViaplay className="w-[28px] h-[28px] fill-white" />
         </button>
       </div>
 
-      {/* right/bottom div */}
-      <div className="w-[720px] max-w-[90%] lg:h-[300px] md:min-h-[300px] flex items-center justify-center lg:gap-[60px] gap-[50px] flex-wrap mb-[50px] lg:mb-0">
-        <div className="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-          <div className="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-            <TbDeviceDesktopAnalytics className="w-[50px] h-[50px] text-[#6d6c6c]" />
+      {/* Right Section */}
+      <div className="w-[720px] max-w-[90%] lg:h-[300px] md:min-h-[300px] flex items-center justify-center lg:gap-[55px] gap-[45px] flex-wrap mb-[50px] lg:mb-0">
+
+        {cards.map((item, index) => (
+          <div
+            key={index}
+            className="
+              w-[100px] h-[130px] text-[13px] font-medium text-center 
+              flex flex-col gap-3 cursor-pointer
+              hover:scale-105 transition-all duration-300
+            "
+          >
+            <div
+              className="
+                w-[100px] h-[90px] rounded-xl flex items-center justify-center shadow-sm
+                bg-gradient-to-br from-[#e0faf4] to-[#f0fffd]
+                border border-[#c7f4e8]
+                hover:shadow-md
+              "
+            >
+              <span className="text-[#0b433a]">{item.icon}</span>
+            </div>
+
+            <span className="text-[#0b433a]">{item.label}</span>
           </div>
-          Web Dev
-        </div>
-        <div className="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-          <div className="w-[100px] h-[90px] bg-[#d9fbe0] rounded-lg flex items-center justify-center">
-            <LiaUikit className="w-[50px] h-[50px] text-[#6d6c6c]" />
-          </div>
-          UI/UX Designing
-        </div>
-        <div className="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-          <div className="w-[100px] h-[90px] bg-[#fcb9c8] rounded-lg flex items-center justify-center">
-            <MdAppShortcut className="w-[50px] h-[50px] text-[#6d6c6c]" />
-          </div>
-          App Dev
-        </div>
-        <div className="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-          <div className="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-            <FaHackerrank className="w-[50px] h-[50px] text-[#6d6c6c]" />
-          </div>
-          Ethical Hacking
-        </div>
-        <div className="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-          <div className="w-[100px] h-[90px] bg-[#d9fbe0] rounded-lg flex items-center justify-center">
-            <AiFillOpenAI className="w-[50px] h-[50px] text-[#6d6c6c]" />
-          </div>
-          AI/ML
-        </div>
-        <div className="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-          <div className="w-[100px] h-[90px] bg-[#fcb9c8] rounded-lg flex items-center justify-center">
-            <SiGoogledataproc className="w-[50px] h-[50px] text-[#6d6c6c]" />
-          </div>
-          Data Science
-        </div>
-        <div className="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-          <div className="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-            <BsClipboard2DataFill className="w-[50px] h-[50px] text-[#6d6c6c]" />
-          </div>
-          Data Analytics
-        </div>
-        <div className="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-          <div className="w-[100px] h-[90px] bg-[#d9fbe0] rounded-lg flex items-center justify-center">
-            <FaTools className="w-[50px] h-[50px] text-[#6d6c6c]" />
-          </div>
-          AI Tools
-        </div>
+        ))}
+
       </div>
     </div>
   );
