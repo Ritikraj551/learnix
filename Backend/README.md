@@ -1,4 +1,4 @@
-Mentora is a full-featured Learning Management System built using the MERN Stack, designed for creators, learners, and educators.
+Learnix is a full-featured Learning Management System built using the MERN Stack, designed for creators, learners, and educators.
 It includes secure authentication, course creation, lecture uploads, AI-powered search, real payments, reviews, and more.
 
 🔗 Live Demo
@@ -6,7 +6,6 @@ It includes secure authentication, course creation, lecture uploads, AI-powered 
 
 📂 GitHub Repository
 https://github.com/Rajat996-alt/Mentora-Backend
-
 
 🛠️ Tech Stack:-
 Backend:
@@ -24,7 +23,6 @@ Postman
 Git & GitHub
 Nodemon
 NPM
-
 
 🔐 Authentication:-
 Signup & Login with validation
@@ -69,7 +67,6 @@ Auto-update course’s average rating
 Fetch all reviews (with user & course details)
 Fully validated, secure review flow
 
-
 🤖 AI-Powered Search Module:-
 Intelligent search using Google Gemini API
 Understands user intent (semantic search)
@@ -81,7 +78,6 @@ Fallback system:
 
 Clean, accurate course discovery
 Fully optimized & production-ready controller.
-
 
 🧪 API Testing:-
 All APIs fully tested using Postman including:

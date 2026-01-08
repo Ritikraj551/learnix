@@ -7,29 +7,27 @@ function Footer() {
   return (
     <footer className="bg-[#0b0f12] text-gray-300 pt-14 pb-8 px-6">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20">
-
         {/* Brand Section */}
         <div className="lg:w-1/3 w-full">
           <img
             src="/assets/logo.jpg"
-            alt="Mentora logo"
+            alt="Learnix logo"
             className="h-12 mb-4 rounded-lg shadow-md"
           />
 
           <h2 className="text-2xl font-bold text-white tracking-wide">
-            Mentora
+            Learnix
           </h2>
 
           <p className="text-sm mt-3 leading-relaxed text-gray-400">
-            Your AI-powered learning companion.  
-            Empower your growth with expert-led courses, smart recommendations,
-            and personalized learning experiences.
+            Your AI-powered learning companion. Empower your growth with
+            expert-led courses, smart recommendations, and personalized learning
+            experiences.
           </p>
         </div>
 
         {/* Links Section */}
         <div className="lg:w-2/3 w-full flex flex-wrap gap-10">
-
           {/* Quick Links */}
           <div className="flex-1 min-w-[150px]">
             <h3 className="text-white text-lg font-semibold mb-4 tracking-wide">
@@ -88,7 +86,8 @@ function Footer() {
 
       {/* Bottom Note */}
       <div className="border-t border-gray-700 mt-12 pt-5 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Mentora — Built for learners, by innovators.
+        © {new Date().getFullYear()} Learnix — Built for learners, by
+        innovators.
       </div>
     </footer>
   );

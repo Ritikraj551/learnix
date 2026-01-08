@@ -18,7 +18,9 @@ function Nav() {
 
   const handleLogout = async () => {
     try {
-      await axios.get(serverUrl + "/api/auth/logout", { withCredentials: true });
+      await axios.get(serverUrl + "/api/auth/logout", {
+        withCredentials: true,
+      });
       dispatch(setUserData(null));
       toast.success("Logout Successful");
     } catch (error) {
@@ -37,7 +39,9 @@ function Nav() {
             alt="logo"
             className="w-14 h-14 rounded-md border-2 border-white"
           />
-          <span className="text-white font-bold text-xl hidden lg:block">Mentora</span>
+          <span className="text-white font-bold text-xl hidden lg:block">
+            Learnix
+          </span>
         </div>
 
         {/* Desktop Menu */}

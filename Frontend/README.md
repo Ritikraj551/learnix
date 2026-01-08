@@ -1,8 +1,8 @@
 # React + Vite
 
-# Mentora — Frontend
+# Learnix — Frontend
 
-This repository contains the frontend scaffold for Mentora. It is a Vite + React structure containing pages, components, services and placeholders for integrations (Razorpay, Google OAuth, Cloudinary) mapped to the backend API.
+This repository contains the frontend scaffold for Learnix. It is a Vite + React structure containing pages, components, services and placeholders for integrations (Razorpay, Google OAuth, Cloudinary) mapped to the backend API.
 
 Quick notes
 

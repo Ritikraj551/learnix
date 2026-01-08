@@ -154,7 +154,7 @@ function Login() {
         {/* RIGHT */}
         <div className="hidden md:flex w-[50%] bg-teal-600 text-white items-center justify-center flex-col p-10">
           <img src="/assets/logo.jpg" className="w-32 rounded-xl shadow-lg" />
-          <h1 className="text-3xl mt-3 font-semibold">MENTORA</h1>
+          <h1 className="text-3xl mt-3 font-semibold">LEARNIX</h1>
           <p className="text-center mt-2 opacity-90">
             Smarter Learning. Faster Growth.
           </p>
