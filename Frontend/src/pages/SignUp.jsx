@@ -27,7 +27,7 @@ function SignUp() {
       const result = await axios.post(
         serverUrl + "/api/auth/signup",
         { name, email, password, role },
-        { withCredentials: true }
+        { withCredentials: true },
       );
       dispatch(setUserData(result.data));
       toast.success("Signup Successful");
@@ -46,7 +46,7 @@ function SignUp() {
       const result = await axios.post(
         serverUrl + "/api/auth/googleauth",
         { name: user.displayName, email: user.email, role },
-        { withCredentials: true }
+        { withCredentials: true },
       );
       dispatch(setUserData(result.data));
       toast.success("Signup Successful");
@@ -154,9 +154,9 @@ function SignUp() {
 
           {/* OR */}
           <div className="w-[90%] flex items-center gap-3">
-            <div className="flex-1 h-[1px] bg-gray-300"></div>
+            <div className="flex-1 h-px bg-gray-300"></div>
             <span className="text-gray-500">or continue with</span>
-            <div className="flex-1 h-[1px] bg-gray-300"></div>
+            <div className="flex-1 h-px bg-gray-300"></div>
           </div>
 
           {/* Google */}
@@ -164,7 +164,7 @@ function SignUp() {
             onClick={googleSignUp}
             className="w-[90%] h-11 border border-teal-600 rounded-xl flex items-center justify-center gap-2 cursor-pointer hover:bg-teal-50 transition"
           >
-            <img src="/assets/google.jpg" className="w-[24px]" />
+            <img src="/assets/google.jpg" className="w-6" />
             <span className="text-gray-600 text-lg">Google</span>
           </div>
 

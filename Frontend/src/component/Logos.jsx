@@ -8,23 +8,23 @@ import { FaUsers } from "react-icons/fa";
 function Logos() {
   const items = [
     {
-      icon: <MdCastForEducation className="w-[32px] h-[32px]" />,
+      icon: <MdCastForEducation className="w-8 h-8" />,
       text: "Learn From 20k+ Courses",
     },
     {
-      icon: <SiOpenaccess className="w-[32px] h-[32px]" />,
+      icon: <SiOpenaccess className="w-8 h-8" />,
       text: "Unlimited Lifetime Access",
     },
     {
-      icon: <FaSackDollar className="w-[32px] h-[32px]" />,
+      icon: <FaSackDollar className="w-8 h-8" />,
       text: "Affordable & Worth Every Penny",
     },
     {
-      icon: <BiSupport className="w-[32px] h-[32px]" />,
+      icon: <BiSupport className="w-8 h-8" />,
       text: "24/7 Dedicated Support",
     },
     {
-      icon: <FaUsers className="w-[32px] h-[32px]" />,
+      icon: <FaUsers className="w-8 h-8" />,
       text: "Active Learner Community",
     },
   ];
@@ -37,7 +37,7 @@ function Logos() {
           className="
             flex items-center justify-center gap-3 
             px-6 py-3 rounded-3xl cursor-pointer
-            bg-gradient-to-r from-[#1fa487]/20 to-[#29d7c3]/20
+            bg-linear-to-r from-[#1fa487]/20 to-[#29d7c3]/20
             text-[#0b433a] font-medium backdrop-blur-xl
             hover:scale-105 transition-all duration-300
             shadow-sm hover:shadow-md

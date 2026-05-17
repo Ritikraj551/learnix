@@ -30,7 +30,7 @@ function Nav() {
   };
 
   return (
-    <div className="fixed top-0 w-full z-50 shadow-md bg-gradient-to-r from-black/80 to-gray-900/70 backdrop-blur-sm">
+    <div className="fixed top-0 w-full z-50 shadow-md bg-linear-to-r from-black/80 to-gray-900/70 backdrop-blur-sm">
       <div className="flex items-center justify-between h-[70px] px-6">
         {/* Logo */}
         <div className="flex items-center gap-2">

@@ -29,10 +29,10 @@ function ExploreCourses() {
 
       {/* Left Section */}
       <div className="w-full lg:w-[350px] lg:h-full h-[400px] flex flex-col items-start justify-center gap-2 md:px-10 px-5">
-        <span className="text-[38px] font-semibold bg-gradient-to-r from-[#1fa487] to-[#29d7c3] text-transparent bg-clip-text">
+        <span className="text-[38px] font-semibold bg-linear-to-r from-[#1fa487] to-[#29d7c3] text-transparent bg-clip-text">
           Explore
         </span>
-        <span className="text-[38px] font-semibold bg-gradient-to-r from-[#29d7c3] to-[#1fa487] text-transparent bg-clip-text">
+        <span className="text-[38px] font-semibold bg-linear-to-r from-[#29d7c3] to-[#1fa487] text-transparent bg-clip-text">
           Our Courses
         </span>
 
@@ -51,7 +51,7 @@ function ExploreCourses() {
           "
         >
           Explore Courses
-          <SiViaplay className="w-[28px] h-[28px] fill-white" />
+          <SiViaplay className="w-7 h-7 fill-white" />
         </button>
       </div>
 
@@ -70,7 +70,7 @@ function ExploreCourses() {
             <div
               className="
                 w-[100px] h-[90px] rounded-xl flex items-center justify-center shadow-sm
-                bg-gradient-to-br from-[#e0faf4] to-[#f0fffd]
+                bg-linear-to-br from-[#e0faf4] to-[#f0fffd]
                 border border-[#c7f4e8]
                 hover:shadow-md
               "
