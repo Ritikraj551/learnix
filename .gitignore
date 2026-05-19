@@ -27,3 +27,6 @@ node_modules/
 *.njsproj
 *.sln
 *.sw?
+ENV_SETUP_TUTORIAL.md
+fix-tests.md
+fix.md
