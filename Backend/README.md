@@ -1,12 +1,6 @@
 Learnix is a full-featured Learning Management System built using the MERN Stack, designed for creators, learners, and educators.
 It includes secure authentication, course creation, lecture uploads, AI-powered search, real payments, reviews, and more.
 
-🔗 Live Demo
-(Add link if available)
-
-📂 GitHub Repository
-https://github.com/Rajat996-alt/Mentora-Backend
-
 🛠️ Tech Stack:-
 Backend:
 Node.js
