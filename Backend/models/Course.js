@@ -53,8 +53,12 @@ const courseSchema = new mongoose.Schema(
         ref: "Review",
       },
     ],
+    averageRating: {
+      type: Number,
+      default: 0,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Course", courseSchema);

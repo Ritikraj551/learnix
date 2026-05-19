@@ -39,7 +39,7 @@ const signUp = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return res.status(201).json({ message: "User added successfully" });
+    return res.status(201).json({ message: "User added successfully", user });
   } catch (error) {
     return res.status(500).json({ message: `SignUp error ${error}` });
   }
@@ -49,7 +49,8 @@ const logIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    let user = await User.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+    let user = await User.findOne({ email: normalizedEmail });
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
@@ -66,7 +67,7 @@ const logIn = async (req, res) => {
       sameSite: "Strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    return res.status(200).json({ message: "Login successfully" });
+    return res.status(200).json({ message: "Login successfully", user });
   } catch (error) {
     return res.status(500).json({ message: `Login error ${error}` });
   }
@@ -106,7 +107,8 @@ const sendOTP = async (req, res) => {
 const verifyOtp = async (req, res) => {
   try {
     const { email, otp } = req.body;
-    const user = await User.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+    let user = await User.findOne({ email: normalizedEmail });
     if (!user || user.resetOtp !== otp || user.otpExpires < Date.now()) {
       return res.status(400).json({ message: "Invalid or expired OTP" });
     }
@@ -126,7 +128,8 @@ const verifyOtp = async (req, res) => {
 const resetPassword = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+    let user = await User.findOne({ email: normalizedEmail });
     if (!user || !user.isOtpVerified) {
       return res.status(404).json({ message: "OTP verification is required" });
     }
@@ -175,7 +178,6 @@ const googleAuth = async (req, res) => {
   }
 };
 
-
 module.exports = {
   signUp,
   logIn,
@@ -185,5 +187,3 @@ module.exports = {
   resetPassword,
   googleAuth,
 };
-
-

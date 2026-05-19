@@ -25,9 +25,9 @@ function Login() {
       const result = await axios.post(
         serverUrl + "/api/auth/login",
         { email, password },
-        { withCredentials: true }
+        { withCredentials: true },
       );
-      dispatch(setUserData(result.data));
+      dispatch(setUserData(result.data.user || result.data));
       toast.success("Login Successful");
       navigate("/");
     } catch (error) {
@@ -43,10 +43,10 @@ function Login() {
 
       const result = await axios.post(
         serverUrl + "/api/auth/googleauth",
-        { name: user.displayName, email: user.email, role: "" },
-        { withCredentials: true }
+        { name: user.displayName, email: user.email, role: "student" },
+        { withCredentials: true },
       );
-      dispatch(setUserData(result.data));
+      dispatch(setUserData(result.data.user || result.data));
       navigate("/");
       toast.success("Logged In Successfully");
     } catch (error) {

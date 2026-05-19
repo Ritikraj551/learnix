@@ -8,8 +8,10 @@ const createOrder = async (req, res) => {
     const { courseId } = req.body;
     const course = await Course.findById(courseId);
 
-    if (!course) {
-      return res.status(404).json({ message: "Course not found" });
+    if (!course) return res.status(404).json({ message: "Course not found" });
+    
+    if (typeof course.price !== "number" || Number.isNaN(course.price)) {
+      return res.status(400).json({ message: "Invalid course price" });
     }
 
     const options = {
@@ -53,6 +55,7 @@ const verifyPayment = async (req, res) => {
 
     const user = await User.findById(userId);
     const course = await Course.findById(courseId);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     if (!user.enrolledCourses.includes(courseId)) {
       user.enrolledCourses.push(courseId);

@@ -29,7 +29,7 @@ function SignUp() {
         { name, email, password, role },
         { withCredentials: true },
       );
-      dispatch(setUserData(result.data));
+      dispatch(setUserData(result.data.user || result.data));
       toast.success("Signup Successful");
       navigate("/");
     } catch (error) {
@@ -48,7 +48,7 @@ function SignUp() {
         { name: user.displayName, email: user.email, role },
         { withCredentials: true },
       );
-      dispatch(setUserData(result.data));
+      dispatch(setUserData(result.data.user || result.data));
       toast.success("Signup Successful");
       navigate("/");
     } catch (error) {

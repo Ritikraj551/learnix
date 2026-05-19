@@ -36,7 +36,7 @@ const CreateCourses = () => {
           max-w-xl w-full md:w-[600px] mx-auto 
           bg-white rounded-2xl shadow-xl p-8 relative
           border border-[#d8f5ef]
-          bg-gradient-to-br from-[#ffffff] to-[#f2fffc]
+          bg-linear-to-br from-[#ffffff] to-[#f2fffc]
         "
       >
         {/* Back Button */}
@@ -44,7 +44,7 @@ const CreateCourses = () => {
           onClick={() => navigate("/courses")}
           className="
             absolute top-6 left-6 text-[#073b33] 
-            w-[24px] h-[24px] cursor-pointer 
+            w-6 h-6 cursor-pointer 
             hover:text-[#0a544a] transition
           "
         />
@@ -115,7 +115,7 @@ const CreateCourses = () => {
             disabled={loading}
             className="
               w-full py-3 rounded-xl font-semibold text-white
-              bg-gradient-to-r from-[#2bb597] to-[#1b8a73]
+              bg-linear-to-r from-[#2bb597] to-[#1b8a73]
               hover:opacity-90 active:scale-95 transition
               flex items-center justify-center
             "

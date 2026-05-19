@@ -20,7 +20,9 @@ const EditProfile = () => {
   const formData = new FormData();
   formData.append("name", name);
   formData.append("description", description);
-  formData.append("photoUrl", photoUrl);
+  if (photoUrl) {
+    formData.append("photoUrl", photoUrl);
+  }
 
   const handleEditProfile = async () => {
     setLoading(true);
@@ -28,9 +30,9 @@ const EditProfile = () => {
       const result = await axios.post(
         serverUrl + "/api/user/profile",
         formData,
-        { withCredentials: true }
+        { withCredentials: true },
       );
-      dispatch(setUserData(result.data));
+      dispatch(setUserData(result.data.user || result.data));
       setLoading(false);
       navigate("/");
       toast.success("Profile Updated");

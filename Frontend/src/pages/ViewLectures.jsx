@@ -14,19 +14,24 @@ function ViewLectures() {
   const navigate = useNavigate();
   const [creatorData, setCreatorData] = useState(null);
   const [selectedLecture, setSelectedLecture] = useState(
-    selectedCourse?.lectures?.[0] || null
+    selectedCourse?.lectures?.[0] || null,
   );
   useEffect(() => {
     const handleCreator = async () => {
       if (selectedCourse?.creator) {
         try {
-          const result = await axios.post(
-            serverUrl + `/api/course/creator`,
-            { userId: selectedCourse?.creator },
-            { withCredentials: true }
+          const creatorId =
+            typeof selectedCourse.creator === "string"
+              ? selectedCourse.creator
+              : selectedCourse.creator?._id;
+          const result = await axios.get(
+            serverUrl + `/api/user/creator/${creatorId}`,
+            {
+              withCredentials: true,
+            },
           );
           console.log(result.data);
-          setCreatorData(result.data);
+          setCreatorData(result.data.user);
         } catch (error) {
           console.log(error);
         }
@@ -36,7 +41,7 @@ function ViewLectures() {
   }, [selectedCourse]);
 
   return (
-     <div className="min-h-screen bg-[#0b0f12] p-6 flex flex-col md:flex-row gap-6 text-gray-200">
+    <div className="min-h-screen bg-[#0b0f12] p-6 flex flex-col md:flex-row gap-6 text-gray-200">
       {/* Left Section: Video */}
       <div className="w-full md:w-2/3 bg-[#1c1f23] rounded-2xl shadow-lg p-6 border border-gray-700">
         <div className="mb-6">
@@ -116,7 +121,9 @@ function ViewLectures() {
                 <h2 className="text-base font-medium text-white">
                   {creatorData?.name}
                 </h2>
-                <p className="text-sm text-gray-400">{creatorData?.description}</p>
+                <p className="text-sm text-gray-400">
+                  {creatorData?.description}
+                </p>
                 <p className="text-sm text-gray-400">{creatorData?.email}</p>
               </div>
             </div>
